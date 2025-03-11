@@ -28,6 +28,8 @@ const readline = require('readline-sync');
 
 const hasTorch = true;
 const hasMap = false;
+const hasSword = true;
+const hasMagicAmulet = true;
 
 console.log("You see two paths: one leads to the mountains, the other to the village.");
 const choice = readline.question("Do you go to the 'mountains' or the 'village'?");
@@ -36,8 +38,30 @@ if (choice === "mountains" && hasTorch) {
   console.log("You safely navigate through the dark mountains.");
 } else if (choice === "mountains" && !hasTorch) {
   console.log("It's too dark to proceed. You decide to turn back.");
-} else if (choice === "village" || hasMap) {
-  console.log("You find your way to the village.");
+} else if (choice === "village") {
+  if (hasMap) {
+    console.log("You find your way to the village.");
+  } else {
+    const choiceTwo = readline.question("On your way to the village, you find a cave, do you enter?");
+  
+    if (choiceTwo === "yes" && hasSword && hasTorch) {
+      console.log("You pull out your sword and torch and proceed with caution."); 
+
+    if (hasMagicAmulet) {
+      const choiceThree = readline.question("The Magic Amulet around your neck begins to glow. Do you touch it or ignore it?"); 
+
+      if (choiceThree === "touch it") {
+        console.log("Infront of you a rock disappears, revealing a room full of treasures. After a bit more exploring you decide to leave the cave. You turn around and continue down the path. After a few days, you reach the village.");
+      } else {
+        console.log("You decide not to pay any attention to it. After a bit more exploring you decide to leave the cave. You turn around and continue down the path. After a few days, you reach the village.");
+      }
+    }
+  } else if (choiceTwo === "yes" && (!hasSword || !hasTorch)) {
+    console.log("You don't have the right equipment. You turn around and continue down the path. After a few days, you reach the village.");
+  } else {
+      console.log("You decided to skip the cave and continue down the path. You turn around and continue down the path. After a few days, you reach the village.")
+    }
+  }
 } else {
   console.log("You get lost and wander aimlessly.");
 }
